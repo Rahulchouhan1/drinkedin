@@ -62,7 +62,8 @@ async def register(user: schemas.UserCreate, db: AsyncSession = Depends(get_db))
         lastName=user.lastName,
         bio=user.bio,
         avatarUrl=user.avatarUrl,
-        role=user.role
+        role=user.role,
+        updatedAt=datetime.utcnow()
     )
     db.add(new_user)
     await db.commit()

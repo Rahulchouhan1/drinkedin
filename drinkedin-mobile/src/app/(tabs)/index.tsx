@@ -157,17 +157,16 @@ export default function FeedScreen() {
       <SafeAreaView style={styles.safeArea}>
         {/* App Header */}
         <View style={styles.appHeader}>
-          <Image
-            source={require('@/assets/logo.png')}
-            style={styles.headerLogo}
-            resizeMode="contain"
-          />
+          <View style={styles.headerSearchContainer}>
+            <Text style={styles.headerSearchIcon}>🔍</Text>
+            <Text style={styles.headerSearchText}>Search</Text>
+          </View>
           <View style={styles.headerRight}>
             <TouchableOpacity style={styles.headerIconButton}>
-              <Text style={styles.headerIcon}>🔍</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.headerIconButton}>
               <Text style={styles.headerIcon}>💬</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.headerProfileBtn}>
+              <Text style={styles.headerProfileEmoji}>👤</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -225,6 +224,7 @@ const styles = StyleSheet.create({
   },
 
   // Header
+  // Header
   appHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -233,24 +233,49 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.three,
     borderBottomWidth: 1,
     borderBottomColor: Colors.dark.border,
+    gap: Spacing.three,
   },
-  headerLogo: {
-    width: 36,
+  headerSearchContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.dark.backgroundElement,
     height: 36,
+    borderRadius: BorderRadius.sm,
+    paddingHorizontal: Spacing.three,
+    gap: Spacing.two,
+  },
+  headerSearchIcon: {
+    fontSize: 16,
+    color: Colors.dark.textSecondary,
+  },
+  headerSearchText: {
+    color: Colors.dark.textSecondary,
+    fontSize: 14,
   },
   headerRight: {
     flexDirection: 'row',
-    gap: Spacing.two,
+    alignItems: 'center',
+    gap: Spacing.three,
   },
   headerIconButton: {
-    width: 40,
-    height: 40,
-    borderRadius: BorderRadius.full,
-    backgroundColor: Colors.dark.backgroundElement,
+    width: 36,
+    height: 36,
     justifyContent: 'center',
     alignItems: 'center',
   },
   headerIcon: {
+    fontSize: 22,
+  },
+  headerProfileBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#374151',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerProfileEmoji: {
     fontSize: 18,
   },
 

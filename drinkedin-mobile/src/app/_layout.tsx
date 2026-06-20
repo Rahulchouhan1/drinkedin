@@ -19,7 +19,7 @@ function InitialLayout() {
       router.replace('/auth/login');
     } else if (user && (inAuthGroup || isWelcome)) {
       // If logged in and on auth or welcome screens, force to feed
-      router.replace('/feed');
+      router.replace('/(tabs)');
     }
   }, [user, isLoading, segments]);
 
@@ -41,7 +41,7 @@ function InitialLayout() {
     >
       <Stack.Screen name="welcome" />
       <Stack.Screen name="auth" />
-      <Stack.Screen name="feed" />
+      <Stack.Screen name="(tabs)" />
       <Stack.Screen name="index" options={{ redirect: true }} />
     </Stack>
   );
