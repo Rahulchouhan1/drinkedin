@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
+import { getToken } from './storage';
 
 // We hardcode the local IP for the mobile device to hit the host machine's backend
 const API_URL = 'http://10.166.197.249:3000';
@@ -10,7 +10,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async (config) => {
-    const token = await SecureStore.getItemAsync('userToken');
+    const token = await getToken('userToken');
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }

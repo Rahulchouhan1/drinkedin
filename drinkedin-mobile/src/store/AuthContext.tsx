@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import * as SecureStore from 'expo-secure-store';
+import { saveToken, getToken, deleteToken } from '../services/storage';
 import { router } from 'expo-router';
 import api from '../services/api';
 
@@ -38,14 +38,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkUser = async () => {
     try {
-      const token = await SecureStore.getItemAsync('userToken');
+      const token = await getToken('userToken');
       if (token) {
         const response = await api.get('/users/me');
         setUser(response.data);
       }
     } catch (e) {
       console.log('Failed to restore session:', e);
-      await SecureStore.deleteItemAsync('userToken');
+      await deleteToken('userToken');
     } finally {
       setIsLoading(false);
     }
@@ -61,7 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       });
       const { access_token } = response.data;
-      await SecureStore.setItemAsync('userToken', access_token);
+      await saveToken('userToken', access_token);
       
       const userResponse = await api.get('/users/me', {
         headers: { Authorization: `Bearer ${access_token}` }
@@ -85,7 +85,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
-    await SecureStore.deleteItemAsync('userToken');
+    await deleteToken('userToken');
     setUser(null);
     router.replace('/auth/login');
   };
