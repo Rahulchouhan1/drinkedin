@@ -1,8 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from .routers import auth, users, businesses, posts
+from .database import init_db
 
-app = FastAPI(title="DrinkedIn API", description="FastAPI Backend for DrinkedIn")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()
+    yield
+
+app = FastAPI(title="DrinkedIn API", description="FastAPI Backend for DrinkedIn", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
